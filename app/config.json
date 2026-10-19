@@ -1,0 +1,27 @@
+{
+  "model_name": "efficientnet_b0",
+  "classes": [
+    "Bacterial_spot",
+    "Early_blight",
+    "Late_blight",
+    "Leaf_Mold",
+    "Septoria_leaf_spot",
+    "Spider_mites Two-spotted_spider_mite",
+    "Target_Spot",
+    "Tomato_Yellow_Leaf_Curl_Virus",
+    "Tomato_mosaic_virus",
+    "healthy"
+  ],
+  "img_size": 224,
+  "mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "std": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "confidence_threshold": 0.6
+}
