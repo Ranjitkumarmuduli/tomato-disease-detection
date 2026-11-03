@@ -1,0 +1,268 @@
+{
+  "disclaimer": "Advisory only. Always follow the product label and consult your local agriculture officer (Krishi Vigyan Kendra) before using any chemical.",
+  "sources": [
+    "TNAU Agritech Portal – Tomato crop protection (agritech.tnau.ac.in)",
+    "ICAR – Indian Institute of Horticultural Research, tomato disease management (iihr.res.in)",
+    "University of California IPM – Tomato pest management guidelines (ipm.ucanr.edu)"
+  ],
+  "diseases": {
+    "Bacterial_spot": {
+      "display_name": "Bacterial Spot",
+      "type": "Bacterial",
+      "pathogen": "Xanthomonas spp.",
+      "urgency": "Medium",
+      "symptoms": [
+        "Small, dark, water-soaked spots on leaves, often with a yellow halo",
+        "Spots merge and leaves turn yellow and drop",
+        "Raised scabby spots on fruit"
+      ],
+      "spread": "Infected seed and plant debris; spreads by rain splash and overhead irrigation in warm, wet weather.",
+      "organic_control": [
+        "Remove and destroy infected leaves",
+        "Avoid overhead watering; water at the base",
+        "Copper-based sprays (allowed in organic farming)"
+      ],
+      "chemical_control": [
+        "Copper hydroxide or copper oxychloride, often combined with mancozeb"
+      ],
+      "prevention": [
+        "Use certified disease-free seed and transplants",
+        "Hot-water seed treatment",
+        "Crop rotation of 2–3 years away from tomato, pepper and eggplant",
+        "Do not work in the field when plants are wet"
+      ]
+    },
+    "Early_blight": {
+      "display_name": "Early Blight",
+      "type": "Fungal",
+      "pathogen": "Alternaria solani",
+      "urgency": "Medium",
+      "symptoms": [
+        "Brown spots with concentric rings (target-like) on older, lower leaves",
+        "Yellowing around the spots",
+        "Leaves dry and fall, starting from the bottom of the plant"
+      ],
+      "spread": "Fungus survives in soil and plant debris; spread by wind and rain splash; favoured by warm, humid weather.",
+      "organic_control": [
+        "Remove infected lower leaves",
+        "Mulch the soil to stop spores splashing onto leaves",
+        "Bio-fungicides based on Trichoderma or Bacillus subtilis",
+        "Copper-based sprays"
+      ],
+      "chemical_control": [
+        "Mancozeb",
+        "Chlorothalonil",
+        "Azoxystrobin (rotate with other groups to avoid resistance)"
+      ],
+      "prevention": [
+        "Crop rotation",
+        "Wide spacing and staking for air flow",
+        "Balanced fertiliser (weak plants are more affected)",
+        "Destroy crop debris after harvest"
+      ]
+    },
+    "Late_blight": {
+      "display_name": "Late Blight",
+      "type": "Oomycete (water mould)",
+      "pathogen": "Phytophthora infestans",
+      "urgency": "High",
+      "symptoms": [
+        "Large, irregular, greasy grey-green to brown patches on leaves",
+        "White fuzzy growth on the underside of leaves in humid conditions",
+        "Brown, firm rot on fruit; whole plants can collapse within days"
+      ],
+      "spread": "Spores spread quickly by wind and rain in cool, wet weather; can destroy a field in a week.",
+      "organic_control": [
+        "Remove and destroy infected plants immediately (do not compost)",
+        "Copper-based sprays as protection"
+      ],
+      "chemical_control": [
+        "Mancozeb (protective)",
+        "Metalaxyl + mancozeb",
+        "Cymoxanil + mancozeb",
+        "Dimethomorph"
+      ],
+      "prevention": [
+        "Avoid overhead irrigation",
+        "Do not plant near potato fields",
+        "Use resistant varieties where available",
+        "Spray protectively when cool, wet weather is forecast"
+      ]
+    },
+    "Leaf_Mold": {
+      "display_name": "Leaf Mould",
+      "type": "Fungal",
+      "pathogen": "Passalora fulva (Fulvia fulva)",
+      "urgency": "Low",
+      "symptoms": [
+        "Pale green to yellow patches on the upper leaf surface",
+        "Olive-green to brown velvety mould on the underside",
+        "Mostly in greenhouses and polyhouses"
+      ],
+      "spread": "Spreads in high humidity (above about 85%) and poor ventilation.",
+      "organic_control": [
+        "Improve ventilation and reduce humidity",
+        "Remove infected leaves",
+        "Copper-based sprays"
+      ],
+      "chemical_control": [
+        "Chlorothalonil",
+        "Mancozeb"
+      ],
+      "prevention": [
+        "Wider plant spacing and pruning",
+        "Water early in the day",
+        "Resistant varieties"
+      ]
+    },
+    "Septoria_leaf_spot": {
+      "display_name": "Septoria Leaf Spot",
+      "type": "Fungal",
+      "pathogen": "Septoria lycopersici",
+      "urgency": "Medium",
+      "symptoms": [
+        "Many small circular spots with dark brown edges and grey-white centres",
+        "Tiny black dots in the spot centres",
+        "Starts on lower leaves; heavy leaf loss"
+      ],
+      "spread": "Survives on plant debris and weeds; spread by rain splash, tools and hands in wet weather.",
+      "organic_control": [
+        "Remove infected lower leaves",
+        "Mulch",
+        "Copper-based sprays"
+      ],
+      "chemical_control": [
+        "Chlorothalonil",
+        "Mancozeb"
+      ],
+      "prevention": [
+        "Crop rotation",
+        "Remove nightshade-family weeds",
+        "Avoid overhead watering",
+        "Clean tools"
+      ]
+    },
+    "Spider_mites Two-spotted_spider_mite": {
+      "display_name": "Two-spotted Spider Mite",
+      "type": "Pest (mite)",
+      "pathogen": "Tetranychus urticae",
+      "urgency": "Medium",
+      "symptoms": [
+        "Tiny yellow or white speckles (stippling) on leaves",
+        "Fine webbing on the underside of leaves",
+        "Leaves turn bronze, dry and fall"
+      ],
+      "spread": "Builds up fast in hot, dry, dusty conditions; often worse after broad-spectrum insecticide sprays kill natural predators.",
+      "organic_control": [
+        "Strong water spray on the underside of leaves",
+        "Neem oil or insecticidal soap",
+        "Release predatory mites (Phytoseiulus persimilis)"
+      ],
+      "chemical_control": [
+        "Miticides such as abamectin or spiromesifen (rotate products to avoid resistance)"
+      ],
+      "prevention": [
+        "Avoid water stress and dust",
+        "Avoid unnecessary broad-spectrum insecticides",
+        "Remove heavily infested leaves early"
+      ]
+    },
+    "Target_Spot": {
+      "display_name": "Target Spot",
+      "type": "Fungal",
+      "pathogen": "Corynespora cassiicola",
+      "urgency": "Medium",
+      "symptoms": [
+        "Brown spots with light centres and concentric rings",
+        "Spots can merge and cause leaf drop",
+        "Sunken spots on fruit"
+      ],
+      "spread": "Survives on plant debris; favoured by warm, humid weather and long leaf wetness.",
+      "organic_control": [
+        "Remove infected leaves and debris",
+        "Improve air flow by pruning"
+      ],
+      "chemical_control": [
+        "Chlorothalonil",
+        "Mancozeb",
+        "Azoxystrobin"
+      ],
+      "prevention": [
+        "Crop rotation",
+        "Avoid overhead irrigation",
+        "Destroy crop debris after harvest"
+      ]
+    },
+    "Tomato_Yellow_Leaf_Curl_Virus": {
+      "display_name": "Tomato Yellow Leaf Curl Virus (TYLCV)",
+      "type": "Viral",
+      "pathogen": "TYLCV, spread by whitefly (Bemisia tabaci)",
+      "urgency": "High",
+      "symptoms": [
+        "Leaves curl upwards and become small and yellow at the edges",
+        "Plants are stunted and bushy",
+        "Flowers drop and very few fruits form"
+      ],
+      "spread": "Carried from plant to plant by whiteflies. There is no cure once a plant is infected.",
+      "organic_control": [
+        "Uproot and destroy infected plants early",
+        "Yellow sticky traps for whiteflies",
+        "Neem oil sprays against whiteflies",
+        "Insect-proof net over nurseries"
+      ],
+      "chemical_control": [
+        "Whitefly control only (the virus itself cannot be treated): insecticides such as imidacloprid, thiamethoxam or spiromesifen, used according to local recommendations"
+      ],
+      "prevention": [
+        "Plant TYLCV-resistant varieties",
+        "Raise seedlings under insect-proof net",
+        "Remove weeds that host whiteflies",
+        "Avoid planting next to old infected crops"
+      ]
+    },
+    "Tomato_mosaic_virus": {
+      "display_name": "Tomato Mosaic Virus (ToMV)",
+      "type": "Viral",
+      "pathogen": "Tomato mosaic virus",
+      "urgency": "High",
+      "symptoms": [
+        "Light and dark green mosaic pattern on leaves",
+        "Leaves are curled, wrinkled or fern-like",
+        "Stunted growth and uneven fruit ripening"
+      ],
+      "spread": "Spreads by touch: hands, tools, clothes and infected seed. Very stable; survives in plant debris. No cure.",
+      "organic_control": [
+        "Remove and destroy infected plants",
+        "Wash hands and disinfect tools between plants",
+        "No smoking or tobacco use near plants"
+      ],
+      "chemical_control": [
+        "No chemical cure; control relies on hygiene and resistant varieties"
+      ],
+      "prevention": [
+        "Use certified, treated seed",
+        "Resistant varieties",
+        "Disinfect tools, stakes and trays",
+        "Crop rotation"
+      ]
+    },
+    "healthy": {
+      "display_name": "Healthy Leaf",
+      "type": "None",
+      "pathogen": "-",
+      "urgency": "None",
+      "symptoms": [
+        "No disease symptoms detected"
+      ],
+      "spread": "-",
+      "organic_control": [],
+      "chemical_control": [],
+      "prevention": [
+        "Keep inspecting plants weekly, especially lower leaves",
+        "Water at the base, not over the leaves",
+        "Keep good spacing and remove weeds",
+        "Use balanced fertiliser"
+      ]
+    }
+  }
+}
