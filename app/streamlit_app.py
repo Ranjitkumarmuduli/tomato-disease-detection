@@ -1,5 +1,5 @@
 """Tomato Leaf Doctor v2 – TomatoLeafNet (our own CNN) + multilingual RAG advisor (Gemma SLM / Gemini LLM)."""
-import json
+import json, os
 import numpy as np
 import streamlit as st
 import torch, torch.nn.functional as F
@@ -10,7 +10,24 @@ from advisor import (LANGUAGES, RETAKE, SOURCE, SYSTEM, KnowledgeBase, LanguageM
                      build_prompt, resolve_language, scrub_doses)
 
 st.set_page_config(page_title="Tomato Leaf Doctor", page_icon="🍅", layout="centered")
-MODEL_DIR = "app_model_v2"
+torch.set_num_threads(2)                       # Streamlit Cloud has very few CPU cores
+
+
+def log(msg):                                  # appears in "Manage app" logs
+    print(f"[TLD] {msg}", flush=True)
+
+
+log("script started")
+st.title("🍅 Tomato Leaf Doctor")
+# find app_model_v2 next to this file, one folder up, or in the repo root
+_HERE = os.path.dirname(os.path.abspath(__file__))
+MODEL_DIR = next((p for p in [os.path.join(_HERE, "app_model_v2"), os.path.join(_HERE, "..", "app_model_v2"),
+                              os.path.join(os.getcwd(), "app_model_v2")]
+                  if os.path.exists(os.path.join(p, "config.json"))), None)
+if MODEL_DIR is None:
+    st.error("Model files not found. Put model.pt, config.json and disease_info.json in a folder named "
+             "app_model_v2 next to streamlit_app.py.")
+    st.stop()
 
 
 # ---------------- loading (cached: runs once per server) ----------------
@@ -30,23 +47,33 @@ def load_kb():
     return kb, KnowledgeBase(kb)
 
 
-@st.cache_resource
-def load_llm():
+def _secret_key():
     try:
-        key = st.secrets.get("GEMINI_API_KEY", "")
+        return st.secrets.get("GEMINI_API_KEY", "")
     except Exception:                      # no secrets file at all
-        key = ""
+        return ""
+
+
+@st.cache_resource(show_spinner=False)
+def load_llm():
+    """Connect to Google only when the advisor is first used (keeps page start fast)."""
+    key = _secret_key()
     if not key:
         return None
     try:
-        return LanguageModel(key)
-    except Exception:
+        llm = LanguageModel(key)
+        log(f"LLM ready: SLM={llm.slm[:2]} LLM={llm.llm[:2]}")
+        return llm
+    except Exception as e:
+        log(f"LLM connect failed: {e}")
         return None
 
 
-model, cfg = load_vision()
-KB, KBASE = load_kb()
-LLM = load_llm()
+with st.spinner("Loading TomatoLeafNet…"):
+    model, cfg = load_vision()
+    KB, KBASE = load_kb()
+log("vision model + knowledge base loaded")
+HAS_KEY = bool(_secret_key())
 THRESHOLD = cfg.get("confidence_threshold", 0.6)
 
 
@@ -99,6 +126,7 @@ def overlay(img, cam):
 def fixed_message(lang, mode):
     if lang in RETAKE:
         return RETAKE[lang]
+    LLM = load_llm() if HAS_KEY else None
     if LLM:
         try:
             return LLM.translate(RETAKE["English"], lang, mode)
@@ -118,11 +146,10 @@ with st.sidebar:
     st.divider()
     st.caption(f"Vision model: **TomatoLeafNet** (our own CNN, "
                f"{sum(p.numel() for p in model.parameters())/1e6:.2f} M params)")
-    st.caption("Advisor: RAG over TNAU / ICAR-IIHR / UC IPM facts" + ("" if LLM else " — ⚠️ no API key, advisor offline"))
+    st.caption("Advisor: RAG over TNAU / ICAR-IIHR / UC IPM facts" + ("" if HAS_KEY else " — ⚠️ no API key, advisor offline"))
     st.caption("M.Sc. Data Science project, VIT Vellore – Ranjit Kumar Muduli")
 
 # ---------------- main page ----------------
-st.title("🍅 Tomato Leaf Doctor")
 st.write("Take or upload a photo of **one tomato leaf**. The app finds the disease and our advisor tells you what to do "
          "— ask in **your own language**.")
 
@@ -151,6 +178,7 @@ if plant_fraction(img) < 0.05:
     st.stop()
 
 # 2. diagnose
+log("predicting")
 probs, cam = predict_with_cam(preprocess(img))
 order = probs.argsort()[::-1]
 cls_name, conf = cfg["classes"][order[0]], float(probs[order[0]])
@@ -173,7 +201,7 @@ with st.expander("Other possibilities"):
         st.write(f"{KB['diseases'].get(kb_key(cfg['classes'][i]), {}).get('display_name', cfg['classes'][i])}: {probs[i]:.1%}")
 
 # 3. disease card (always available, even offline)
-with st.expander("📋 Disease facts (knowledge base)", expanded=LLM is None):
+with st.expander("📋 Disease facts (knowledge base)", expanded=not HAS_KEY):
     if not healthy:
         st.write(f"**Type:** {info.get('type', '-')} · **Cause:** {info.get('pathogen', '-')} · **Urgency:** {info.get('urgency', '-')}")
     for field, label in [("symptoms", "Symptoms"), ("organic_control", "Organic / cultural control"),
@@ -185,7 +213,7 @@ with st.expander("📋 Disease facts (knowledge base)", expanded=LLM is None):
 
 # 4. chat advisor
 st.subheader("💬 Ask the advisor")
-if LLM is None:
+if not HAS_KEY:
     st.info("The AI advisor needs an API key (add GEMINI_API_KEY in the app secrets). The facts above are still valid.")
     st.stop()
 
@@ -194,6 +222,9 @@ def answer(question):
     lang = resolve_language(lang_choice, question)
     lang_line = lang if not lang_choice.startswith("Auto") or lang != "English" else "same as the FARMER QUESTION"
     prompt = build_prompt(KBASE, disease, conf, question, lang_line, st.session_state.chat)
+    LLM = load_llm()
+    if LLM is None:
+        return "The advisor could not connect right now. Please use the disease facts above.", "unavailable"
     try:
         text, used, sec = LLM.generate(SYSTEM, prompt, mode)
         return scrub_doses(text) + f"\n\n*{SOURCE}*", f"{used} · {sec:.1f}s"

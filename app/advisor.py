@@ -98,7 +98,8 @@ class LanguageModel:
     def __init__(self, api_key):
         from google import genai
         self.genai = genai
-        self.client = genai.Client(api_key=api_key)
+        from google.genai import types
+        self.client = genai.Client(api_key=api_key, http_options=types.HttpOptions(timeout=30000))  # 30 s max
         names = [m.name.replace("models/", "") for m in self.client.models.list()]
         gemmas = [n for n in names if "gemma" in n.lower() and n.endswith("-it")]
         self.slm = [g for s in self.GEMMA_SIZES for g in gemmas if f"-{s}-" in g]
