@@ -1,0 +1,7 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+numpy
+pillow
+scikit-learn
+streamlit
+google-genai
